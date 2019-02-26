@@ -25,7 +25,7 @@ Glossary
 
       Complete graph
       Fully connected
-          See `complete graph`_. A fully connected or complete
+          See `complete graph`_. on wikipedia. A fully connected or complete
           :term:`binary quadratic model` is one that has interactions between
           all of its variables.
 
@@ -72,7 +72,8 @@ Glossary
          biases and coupling strengths.
 
       Hardware graph
-         See `hardware graph`_.
+         See `hardware graph`_. The hardware graph is the physical lattice of
+         interconnected qubits. See also :term:`working graph`.
 
          .. _hardware graph: https://docs.dwavesys.com/docs/latest/c_gs_4.html
 
@@ -163,9 +164,9 @@ Glossary
          others leverage CPU and GPU resources.
 
       Subgraph
-         See subgraph_.
+         See subgraph_ on wikipedia.
 
          .. _subgraph: https://en.wikipedia.org/wiki/Glossary_of_graph_theory_terms#subgraph
 
       Working graph
-         In a D-Wave QPU, the set of qubits and couplers that are available for computation is known as the working graph. The yield of a working graph is typically less than the total number of qubits and couplers that are fabricated and physically present in the QPU.
+         In a D-Wave QPU, the set of qubits and couplers that are available for computation is known as the working graph. The yield of a working graph is typically less than 100% of qubits and couplers that are fabricated and physically present in the QPU. See :term:`hardware graph`.

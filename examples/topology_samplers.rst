@@ -25,10 +25,10 @@ As detailed in :ref:`cpu`, you might want to use a classical solver while
 developing your code or writing tests. However, it is sometimes useful to
 work with a software solver that behaves more like a quantum computer.
 
-One of the key features of the quantum computer is the :term:`hardware graph`, which
+One of the key features of the quantum computer is its :term:`working graph`, which
 defines the connectivity allowed by the :term:`binary quadratic model`.
 
-To create a software solver with the same connectivity of a quantum computer
+To create a software solver with the same connectivity as a D-Wave 2000Q quantum computer
 we first need a representation of the :term:`Chimera` graph which can be obtained
 from the :std:doc:`dwave_networkx <networkx:index>` project using the
 :func:`~dwave_networkx.chimera_graph` function.
@@ -77,6 +77,20 @@ True
 True
 
 
+Creating a Pegasus Sampler
+--------------------------
+
+Another topology of interest is the :term:`Pegasus` topology.
+
+As above, we can use the generator function :func:`dwave_networkx.pegasus_graph` found in
+:std:doc:`dwave_networkx <networkx:index>` and the
+:class:`neal.SimulatedAnnealingSampler` found in :std:doc:`dwave_neal <neal:index>`
+to construct a sampler.
+
+>>> P6 = dnx.pegasus_graph(6)
+>>> classical_sampler = neal.SimulatedAnnealingSampler()
+>>> sampler = dimod.StructureComposite(classical_sampler, P6.nodes, P6.edges)
+
 Working With Embeddings
 -----------------------
 
@@ -98,23 +112,8 @@ embedding and determine the maximum chain length.
 >>> max(len(chain) for chain in embedding.values())
 11
 
-
-Working with Pegasus
---------------------
-
-Another topology of interest is the :term:`Pegasus` topology.
-
-As above, we can use the generator function :func:`dwave_networkx.pegasus_graph` found in
-:std:doc:`dwave_networkx <networkx:index>` and the
-:class:`neal.SimulatedAnnealingSampler` found in :std:doc:`dwave_neal <neal:index>`
-to construct a sampler.
-
->>> P6 = dnx.pegasus_graph(6)
->>> classical_sampler = neal.SimulatedAnnealingSampler()
->>> sampler = dimod.StructureComposite(classical_sampler, P6.nodes, P6.edges)
-
 Similarly we can explore clique embeddings for a 40-variables fully connected
-problem with a 680 node Pegasus graph 
+problem with a 680 node Pegasus graph using
 :std:doc:`dwave-system <system:index>`'s
 :func:`~dwave.embedding.pegasus.find_clique_embedding` function
 
