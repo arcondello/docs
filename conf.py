@@ -18,8 +18,45 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('.'))
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import importlib
+
+from subprocess import call, PIPE, Popen
+
+mydir = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, mydir)
+
+os.chdir(mydir)
+
+
+# -- Getting the other modules in the sdk ---------------------------------
+git_path = Popen('which git', shell=True, stdout=PIPE).stdout.read().strip()
+
+projects = [('dimod', 'dimod', 'https://github.com/dwavesystems/dimod.git'),
+            ('dwave-system', 'dwave.system', 'https://github.com/dwavesystems/dwave-system.git'),
+            ]
+
+for pkg_name, import_name, repo in projects:
+    pkg_dir = os.path.join(mydir, 'packages', pkg_name)
+
+    package = importlib.import_module(import_name)
+
+    try:
+        tag = package.__version__
+    except AttributeError:
+        tag = package.package_info.__version__
+
+    if not os.path.isdir(pkg_dir):
+        call([git_path, 'clone', repo, pkg_dir])
+        # raise NotImplementedError
+
+    # make sure we're pointing at the right tag rather than the most recent
+    os.chdir(pkg_dir)
+    call([git_path, 'fetch'])
+    call([git_path, 'checkout', tag])
+    os.chdir(mydir)
+
+    sys.path.insert(0, pkg_dir)
+
 
 # -- General configuration ------------------------------------------------
 # import sphinx
