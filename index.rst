@@ -28,6 +28,7 @@ Understand the terminology.
    :maxdepth: 2
 
    getting_started
+   packages
    projects
    glossary
    CONTRIBUTING

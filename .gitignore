@@ -70,3 +70,7 @@ build
 ######################
 *.sublime-workspace
 *.sublime-project
+
+# Dir containing sdk
+######################
+packages

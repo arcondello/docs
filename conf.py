@@ -22,6 +22,8 @@ import importlib
 
 from subprocess import call, PIPE, Popen
 
+from dwaveoceansdk.package_info import __version__ as sdk_version
+
 mydir = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, mydir)
 
@@ -47,7 +49,6 @@ for pkg_name, import_name, repo in projects:
 
     if not os.path.isdir(pkg_dir):
         call([git_path, 'clone', repo, pkg_dir])
-        # raise NotImplementedError
 
     # make sure we're pointing at the right tag rather than the most recent
     os.chdir(pkg_dir)
@@ -101,7 +102,7 @@ author = u'D-Wave Systems Inc'
 # built documents.
 #
 # The short X.Y version.
-version = '0.0.1'
+version = sdk_version
 # The full version, including alpha/beta/rc tags.
 release = version
 
